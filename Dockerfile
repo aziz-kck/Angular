@@ -10,6 +10,8 @@
 #
 #WORKDIR /usr/local/apache2/htdocs
 #COPY --from=angular /app/dist/summer-workshop-angular .
+
+
 # Stage 1: Build the Angular application
 FROM node:18-alpine AS build
 
