@@ -9,6 +9,9 @@
     "test": "ng test",
     "compodoc": "npx compodoc -p tsconfig.doc.json"
   },
+  "publishConfig": {
+    "registry": "http://localhost:8081/repository/npm-repo/"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "^16.1.0",
