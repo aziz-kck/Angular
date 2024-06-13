@@ -1,11 +1,29 @@
+#version: '3'
+#services:
+#  angular-app:
+#    image: angular-app
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    ports:
+#      - "8085:80"
+#    volumes:
+#      - .:/app
+
 version: '3'
 services:
   angular-app:
-    image: angular-app
+    image: angular-app  # Name of the image to build or pull
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8085:80"
+      - "8085:80"  # Adjusted port mapping if needed
     volumes:
-      - .:/app
+      - .:/app  # Mounting current directory to /app within the container
+
+  nginx-exporter:
+    image: nginx/nginx-prometheus-exporter:latest
+    command: ["-nginx.scrape-uri=http://angular-app:80/metrics"]  # Adjusted scrape URI to point to Angular app
+    ports:
+      - "9113:9113"
