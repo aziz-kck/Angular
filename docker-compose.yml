@@ -22,8 +22,8 @@ services:
     volumes:
       - .:/app  # Mounting current directory to /app within the container
 
-#  nginx-exporter:
-#    image: nginx/nginx-prometheus-exporter:latest
-#    command: ["-nginx.scrape-uri=http://angular-app:80/metrics"]  # Adjusted scrape URI to point to Angular app
-#    ports:
-#      - "9113:9113"
+  nginx-exporter:
+    image: nginx/nginx-prometheus-exporter:latest
+    command: ["-nginx.scrape-uri=http://angular-app:80/metrics"]  # Adjusted scrape URI to point to Angular app
+    ports:
+      - "9113:9113"
