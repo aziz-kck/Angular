@@ -27,6 +27,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProductService } from '../services/product.service';
 import { StockService } from '../services/stock.service';
 import { ActivatedRoute } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule
 import { of } from 'rxjs';
 
 describe('ProductComponent', () => {
@@ -39,6 +40,7 @@ describe('ProductComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ProductComponent],
+      imports: [HttpClientModule], // Include HttpClientModule in imports
       providers: [
         NgbModal,
         ProductService,
@@ -79,6 +81,6 @@ describe('ProductComponent', () => {
     expect(component.data).toEqual(mockResponse);
   });
 
-  // Add more tests as needed for other methods and behaviors
 });
+
 
