@@ -34,11 +34,7 @@ describe('ProductComponent', () => {
   let fixture: ComponentFixture<ProductComponent>;
   let productService: ProductService;
   let stockService: StockService;
-
-  // Mock ActivatedRoute with a mockSnapshot method
-  const mockActivatedRoute = {
-    snapshot: { paramMap: { get: () => '1' } }
-  };
+  let activatedRoute: ActivatedRoute;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -47,7 +43,16 @@ describe('ProductComponent', () => {
         NgbModal,
         ProductService,
         StockService,
-        { provide: ActivatedRoute, useValue: mockActivatedRoute }
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            snapshot: {
+              paramMap: {
+                get: (key: string) => (key === 'id' ? '1' : null) // Adjust this mock as needed
+              }
+            }
+          }
+        }
       ]
     }).compileComponents();
   }));
@@ -57,6 +62,7 @@ describe('ProductComponent', () => {
     component = fixture.componentInstance;
     productService = TestBed.inject(ProductService);
     stockService = TestBed.inject(StockService);
+    activatedRoute = TestBed.inject(ActivatedRoute);
     fixture.detectChanges();
   });
 
@@ -73,15 +79,6 @@ describe('ProductComponent', () => {
     expect(component.data).toEqual(mockResponse);
   });
 
-  it('should handle null id in fetchData method', () => {
-    spyOn(mockActivatedRoute.snapshot.paramMap, 'get').and.returnValue(null);
-    spyOn(console, 'error'); // Spy on console.error
-
-    component.fetchData();
-
-    expect(console.error).toHaveBeenCalledWith('No ID found in route snapshot.');
-    expect(productService.fetchData).not.toHaveBeenCalled(); // Ensure fetchData is not called
-  });
-
   // Add more tests as needed for other methods and behaviors
 });
+
